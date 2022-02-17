@@ -22,6 +22,13 @@ pics.get('/',async (req: express.Request,res: express.Response): Promise<void> =
       return;
     }
 
+    const path: null | string = await File.getImagePath(req.query);
+    if (path) {
+      res.sendFile(path);
+    } else {
+      res.send('Coud not retrieve the image');
+    }
+
   }
 );
 
