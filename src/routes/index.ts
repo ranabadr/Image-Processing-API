@@ -3,7 +3,7 @@ import pics from './api/pics';
 
 const routes: express.Router = express.Router();
 
-routes.use('/', pics);
+routes.use('/api/pics', pics);
 
 routes.get('/',(req: express.Request, res: express.Response): void => {
     res.send('Start processing');
