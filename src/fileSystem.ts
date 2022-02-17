@@ -1,5 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import resize from './resize';
+import process from './resize';
 
 interface Query {
   filename?: string;
@@ -73,6 +75,13 @@ export default class File {
       File.imagesThumbPath,
       `${params.filename}-${params.width}x${params.height}.jpg`
     );
+
+    return await resize({
+      source: filePathFull,
+      target: filePathThumb,
+      width: parseInt(params.width),
+      height: parseInt(params.height)
+    });
 
   }
 }
