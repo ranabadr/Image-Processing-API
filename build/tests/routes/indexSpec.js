@@ -40,14 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
+var index_1 = __importDefault(require("../../routes/index"));
 var req = (0, supertest_1.default)(index_1.default);
-describe('Test index', function () {
+describe('Test endpoint responses', function () {
     it('gets the api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/')];
+                case 0: return [4 /*yield*/, req.get('/api/pics')];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
