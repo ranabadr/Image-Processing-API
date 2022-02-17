@@ -1,4 +1,5 @@
 import express from 'express';
+import File from '../../fileSystem';
 
 interface Query {
   filename?: string;
@@ -8,9 +9,21 @@ interface Query {
 
 const pics: express.Router = express.Router();
 
-pics.get('/',(req: express.Request,res: express.Response)=>{
-    
+pics.get('/',async (req: express.Request,res: express.Response): Promise<void> => {
+
+    let error: null | string = '';
+
+    if (!(await File.isThumbAvailable(req.query))) {
+      error = await File.createThumb(req.query);
+    }
+
+    if (error) {
+      res.send(error);
+      return;
+    }
+
   }
 );
+
 
 export default pics;
