@@ -39,20 +39,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var req = (0, supertest_1.default)(index_1.default);
-describe('Test endpoint responses', function () {
-    it('gets the api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/')];
-                case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(200);
+var express_1 = __importDefault(require("express"));
+var fileSystem_1 = __importDefault(require("../../fileSystem"));
+var pics = express_1.default.Router();
+pics.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var error, path;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                error = '';
+                return [4 /*yield*/, fileSystem_1.default.isThumbAvailable(req.query)];
+            case 1:
+                if (!!(_a.sent())) return [3 /*break*/, 3];
+                return [4 /*yield*/, fileSystem_1.default.createThumb(req.query)];
+            case 2:
+                error = _a.sent();
+                _a.label = 3;
+            case 3:
+                if (error) {
+                    res.send(error);
                     return [2 /*return*/];
-            }
-        });
-    }); });
-});
+                }
+                return [4 /*yield*/, fileSystem_1.default.getImagePath(req.query)];
+            case 4:
+                path = _a.sent();
+                if (path) {
+                    res.sendFile(path);
+                }
+                else {
+                    res.send('Coud not retrieve the image');
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+exports.default = pics;

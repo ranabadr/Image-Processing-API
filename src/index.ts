@@ -13,3 +13,5 @@ app.listen(port, async (): Promise<void> => {
   
     console.log(`Server run on: http://localhost:${port}`);
   });
+
+  export default app;
