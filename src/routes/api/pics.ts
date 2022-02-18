@@ -27,7 +27,12 @@ const validation = async (query: Query): Promise<null | string> =>{
   if (Number.isNaN(width) || width < 1) {
     return "Please provide a valid width.";
   }
-  
+
+  const height: number = parseInt(query.height || '');
+  if (Number.isNaN(height) || height < 1) {
+    return "Please provide a height.";
+  }
+
   return null;
 };
 
