@@ -42,26 +42,59 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var fileSystem_1 = __importDefault(require("../../fileSystem"));
 var pics = express_1.default.Router();
-pics.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var error, path;
+var validation = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+    var availableImageNames, width, height;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                error = '';
-                return [4 /*yield*/, fileSystem_1.default.isThumbAvailable(req.query)];
+            case 0: return [4 /*yield*/, fileSystem_1.default.isImageAvailable(query.filename)];
             case 1:
                 if (!!(_a.sent())) return [3 /*break*/, 3];
-                return [4 /*yield*/, fileSystem_1.default.createThumb(req.query)];
+                return [4 /*yield*/, fileSystem_1.default.getAvailableImageNames()];
             case 2:
-                error = _a.sent();
-                _a.label = 3;
+                availableImageNames = (_a.sent()).join(', ');
+                return [2 /*return*/, "Please pass a valid filename in the 'filename' query segment."];
             case 3:
+                if (!query.width && !query.height) {
+                    return [2 /*return*/, null];
+                }
+                width = parseInt(query.width || '');
+                if (Number.isNaN(width) || width < 1) {
+                    return [2 /*return*/, "Please provide a valid width."];
+                }
+                height = parseInt(query.height || '');
+                if (Number.isNaN(height) || height < 1) {
+                    return [2 /*return*/, "Please provide a height."];
+                }
+                return [2 /*return*/, null];
+        }
+    });
+}); };
+pics.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var validationMessage, error, path;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, validation(req.query)];
+            case 1:
+                validationMessage = _a.sent();
+                if (validationMessage) {
+                    res.send(validationMessage);
+                    return [2 /*return*/];
+                }
+                error = '';
+                return [4 /*yield*/, fileSystem_1.default.isThumbAvailable(req.query)];
+            case 2:
+                if (!!(_a.sent())) return [3 /*break*/, 4];
+                return [4 /*yield*/, fileSystem_1.default.createThumb(req.query)];
+            case 3:
+                error = _a.sent();
+                _a.label = 4;
+            case 4:
                 if (error) {
                     res.send(error);
                     return [2 /*return*/];
                 }
                 return [4 /*yield*/, fileSystem_1.default.getImagePath(req.query)];
-            case 4:
+            case 5:
                 path = _a.sent();
                 if (path) {
                     res.sendFile(path);

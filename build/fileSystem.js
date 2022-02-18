@@ -72,6 +72,38 @@ var File = /** @class */ (function () {
             });
         });
     };
+    File.isImageAvailable = function (filename) {
+        if (filename === void 0) { filename = ''; }
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!filename) {
+                            return [2 /*return*/, false];
+                        }
+                        return [4 /*yield*/, File.getAvailableImageNames()];
+                    case 1: return [2 /*return*/, (_a.sent()).includes(filename)];
+                }
+            });
+        });
+    };
+    File.getAvailableImageNames = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, fs_1.promises.readdir(File.imagesFullPath)];
+                    case 1: return [2 /*return*/, (_b.sent()).map(function (filename) { return filename.split('.')[0]; })];
+                    case 2:
+                        _a = _b.sent();
+                        return [2 /*return*/, []];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     File.isThumbAvailable = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var filePath, _a;
