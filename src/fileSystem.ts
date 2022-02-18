@@ -33,7 +33,7 @@ export default class File {
         }
     }
 
-    static async isImageAvailable(filename: string = ''): Promise<boolean> {
+    static async isImageAvailable(filename = ''): Promise<boolean> {
         if (!filename) {
             return false;
         }

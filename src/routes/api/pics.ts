@@ -10,13 +10,7 @@ interface Query {
 const pics: express.Router = express.Router();
 
 const validation = async (query: Query): Promise<null | string> => {
-    if (!(await File.isImageAvailable(query.filename))) {
-        const availableImageNames: string = (
-            await File.getAvailableImageNames()
-        ).join(', ');
-        return `Please pass a valid filename in the 'filename' query segment.`;
-    }
-
+    
     if (!query.width && !query.height) {
         return null;
     }

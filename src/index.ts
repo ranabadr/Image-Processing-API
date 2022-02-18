@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import routes from './routes/index';
 import File from './fileSystem';
 

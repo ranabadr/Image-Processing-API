@@ -150,7 +150,7 @@ var fileSystem_1 = __importDefault(require('../../fileSystem'));
 var pics = express_1.default.Router();
 var validation = function (query) {
     return __awaiter(void 0, void 0, void 0, function () {
-        var availableImageNames, width, height;
+        var lableImageNames, width, height;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
