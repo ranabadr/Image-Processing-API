@@ -6,5 +6,5 @@ describe('Test index', () => {
     it('gets the api endpoint', async () => {
         const res = await req.get('/');
         expect(res.status).toBe(200);
-    }
-)});
+    });
+});
