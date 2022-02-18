@@ -37,6 +37,12 @@ const validation = async (query: Query): Promise<null | string> =>{
 
 pics.get('/',async (req: express.Request,res: express.Response): Promise<void> => {
 
+  const validationMessage: null | string = await validation(req.query);
+    if (validationMessage) {
+      res.send(validationMessage);
+      return;
+    }
+
     let error: null | string = '';
 
     if (!(await File.isThumbAvailable(req.query))) {
