@@ -34,6 +34,24 @@ export default class File {
     }
   }
 
+  static async isImageAvailable(filename: string = ''): Promise<boolean> {
+    if (!filename) {
+      return false;
+    }
+
+    return (await File.getAvailableImageNames()).includes(filename);
+  }
+
+  static async getAvailableImageNames(): Promise<string[]> {
+    try {
+      return (await fs.readdir(File.imagesFullPath)).map(
+        (filename: string): string => filename.split('.')[0]
+      );
+    } catch {
+      return [];
+    }
+  }
+
   static async isThumbAvailable(params: Query): Promise<boolean> {
     if (!params.filename || !params.width || !params.height) {
       return false;
