@@ -18,7 +18,18 @@ const validation = async (query: Query): Promise<null | string> =>{
       ).join(', ');
       return `Please pass a valid filename in the 'filename' query segment.`;
     }
-}
+
+    if (!query.width && !query.height) {
+      return null; 
+    }
+
+    const width: number = parseInt(query.width || '');
+  if (Number.isNaN(width) || width < 1) {
+    return "Please provide a valid width.";
+  }
+  
+  return null;
+};
 
 pics.get('/',async (req: express.Request,res: express.Response): Promise<void> => {
 
