@@ -32,7 +32,7 @@ http://localhost:3000/api/pics
 
 ### Example
 
-http://localhost:3000/api/images?filename=fjord&width=200&height=200 Will scale the fjord image to 200 by 200 pixels and store the resulting image
+http://localhost:3000/api/pics?filename=fjord&width=200&height=200 Will scale the fjord image to 200 by 200 pixels and store the resulting image
 
 ## Languages
 
