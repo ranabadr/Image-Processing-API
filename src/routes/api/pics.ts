@@ -11,7 +11,6 @@ const pics: express.Router = express.Router();
 
 const validation = async (query: Query): Promise<null | string> =>{
 
-  const validate = async (query: Query): Promise<null | string> => {
     if (!(await File.isImageAvailable(query.filename))) {
       const availableImageNames: string = (
         await File.getAvailableImageNames()
